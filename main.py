@@ -11,6 +11,9 @@ pi = pigpio.pi()
 pi.set_mode(DIR, pigpio.OUTPUT)
 pi.set_mode(STEP, pigpio.OUTPUT)
 
+pi.set_mode(DIR2, pigpio.OUTPUT)
+pi.set_mode(STEP2, pigpio.OUTPUT)
+
 # Başlangıç değerleri
 direction = 1
 frequency = 500  # Hz
