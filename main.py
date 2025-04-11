@@ -26,6 +26,12 @@ pi.set_PWM_frequency(STEP, frequency)
 pi.set_PWM_dutycycle(STEP2, 128)
 pi.set_PWM_frequency(STEP2, frequency)
 
+### Buton Ayarlari
+BUTTON_PIN = 17 # X switch 1
+pi.set_mode(BUTTON_PIN, pigpio.INPUT)
+pi.set_pull_up_down(BUTTON_PIN, pigpio.PUD_UP)
+
+
 print("""
 🔧 Komutlar:
 r → sağa dön
@@ -37,7 +43,18 @@ q → çık
 
 try:
     while True:
+        button_state = pi.read(BUTTON_PIN)
         cmd = input("Komut (r/l/u/d/q): ").strip().lower()
+        if button_state == 0:  # LOW = buton basılı
+            print("🛑 Butona basıldı, motor durdu!")
+            pi.set_PWM_dutycycle(STEP, 0)
+            pi.set_PWM_dutycycle(STEP2, 0)
+        else:
+            pi.set_PWM_dutycycle(STEP, 128)
+            pi.set_PWM_dutycycle(STEP2, 128)
+            direction = 1
+            pi.write(DIR, direction)
+            pi.write(DIR2, direction)
 
         if cmd == "r":
             direction = 1
