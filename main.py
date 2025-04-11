@@ -1,5 +1,5 @@
 import pigpio
-from time import sleep
+import time
 
 DIR = 20    # Yön pini
 STEP = 21   # Step pini
@@ -43,7 +43,9 @@ q → çık
 
 try:
     while True:
+        time.sleep(3000)
         button_state = pi.read(BUTTON_PIN)
+        print(f"Button state: {button_state}")
         cmd = input("Komut (r/l/u/d/q): ").strip().lower()
         if button_state == 0:  # LOW = buton basılı
             print("🛑 Butona basıldı, motor durdu!")
